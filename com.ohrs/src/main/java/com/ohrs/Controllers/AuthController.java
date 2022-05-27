@@ -34,7 +34,7 @@ import com.ohrs.security.services.UserDetailsImpl;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping(value = "/api/auth", consumes = "application/json")
 public class AuthController {
 	@Autowired
 	AuthenticationManager authenticationManager;
@@ -62,7 +62,9 @@ public class AuthController {
 	}
 
 	@PostMapping("/signup")
-	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+	public ResponseEntity<?> registerUser(@Valid SignupRequest signUpRequest) {
+		System.out.println("signup");
+		
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 			return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
 		}
