@@ -14,7 +14,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +36,7 @@ import com.ohrs.security.services.UserDetailsImpl;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping(value = "/api/auth", consumes = "application/json")
+@RequestMapping(value = "/api/auth")
 public class AuthController {
 	@Autowired
 	AuthenticationManager authenticationManager;
@@ -48,7 +50,7 @@ public class AuthController {
 	JwtUtils jwtUtils;
 
 	@PostMapping("/signin")
-	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+	public ResponseEntity<?> authenticateUser(@Valid @ModelAttribute LoginRequest loginRequest) {
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -57,24 +59,50 @@ public class AuthController {
 		List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
 				.collect(Collectors.toList());
 		return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
+				//.body(new UserInfoResponse(useDetails., null, null, null, roles))
 				.body(new UserInfoResponse(userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(),
 						userDetails.getContactno(), roles));
 	}
 
 	@PostMapping("/signup")
-	public ResponseEntity<?> registerUser(@Valid SignupRequest signUpRequest) {
+	public ResponseEntity<MessageResponse> registerUser(@Valid @ModelAttribute SignupRequest signUpRequest) {
 		System.out.println("signup");
+		System.out.println(signUpRequest.getContactno());
+		
+		/*if(result.hasErrors())
+		{
+			System.out.println(result);
+		} */
+		
+	/*	if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+			return "redirect:/registration?failusername";
+		}
+		
+		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+			return "redirect:/registration?failemail";
+		} */
 		
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 			return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
 		}
 		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
 			return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
-		}
+		} 
+		
 		// Create new user's account
+		
+		
+		
 		User user = new User(signUpRequest.getUsername(), signUpRequest.getEmail(),
-				encoder.encode(signUpRequest.getPassword()), signUpRequest.getContactno());
+					signUpRequest.getContactno(), encoder.encode(signUpRequest.getPassword()));
+		
+		
+	//	User user = new User(signUpRequest.getUsername(), signUpRequest.getEmail(),
+	//				signUpRequest.getContactno(), encoder.encode(signUpRequest.getPassword()));
+	/*	User user = new User(signUpRequest.getUsername(), signUpRequest.getEmail(),
+				signUpRequest.getContactno(),encoder.encode(signUpRequest.getPassword())); */
 		Set<String> strRoles = signUpRequest.getRole();
+		System.out.println(strRoles);
 		Set<Role> roles = new HashSet<>();
 		if (strRoles == null) {
 			Role userRole = roleRepository.findByName(ERole.CUSTOMER)
@@ -102,7 +130,8 @@ public class AuthController {
 		}
 		user.setRoles(roles);
 		userRepository.save(user);
-		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+	//	return "redirect:/registration?success";
+	    return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 	}
 
 	@PostMapping("/signout")

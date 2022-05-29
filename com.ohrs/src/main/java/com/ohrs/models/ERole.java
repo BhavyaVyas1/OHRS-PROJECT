@@ -1,8 +1,9 @@
 package com.ohrs.models;
 
 public enum ERole {
-	CUSTOMER,
+	
+	ADMIN,
 	OWNER,
-	ADMIN
+	CUSTOMER
 
 }

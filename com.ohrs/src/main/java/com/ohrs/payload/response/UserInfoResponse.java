@@ -16,10 +16,12 @@ public class UserInfoResponse {
 	private Long id;
 	private String username;
 	private String email;
-	private String contactno;
+	private Long contactno;
 	private List<String> roles;
 
-	public UserInfoResponse(Long id, String username, String email, String contactno, List<String> roles) {
+
+	public UserInfoResponse(Long id, String username, String email, Long contactno, List<String> roles) {
+		super();
 		this.id = id;
 		this.username = username;
 		this.email = email;

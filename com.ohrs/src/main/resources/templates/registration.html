@@ -50,8 +50,12 @@ body {
 	</nav>
 	<br>
 	<br>
+	
 
 	<div class="container">
+	
+	
+	
 		<h1>Registration Form</h1>
 		<form action="/api/auth/signup" method="post" >
 			<table>
@@ -71,20 +75,22 @@ body {
 				</tr>
 				<tr>
 					<td><label for="contactno">Phone Number:</label></td>
-					<td><input type="text" name="contactNo" id="contactNo"></td>
+					<td><input type="text" name="contactno" id="contactno"></td>
 				</tr>
 
 				<tr>
 					<td><label for="role">Role</label></td>
 					<td><select name="role" id="role">
 							<option value="">Select Role</option>
-							<option value="Owner">Owner</option>
-							<option value="Customer">Customer</option>
+							<option value="owner">Owner</option>
+							<option value="customer">Customer</option>
 					</select></td>
 				</tr>
 				<tr>
-					<td colspan="2"><input type="submit" class="submit"
+					<td><input type="submit" class="submit"
 						value="Register" /></td>
+					<td><input type="reset" class="cancel"
+						value="Cancel" /></td>
 				</tr>
 			</table>
 		</form>

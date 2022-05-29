@@ -2,9 +2,11 @@ package com.ohrs.payload.request;
 
 import java.util.Set;
 
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.Data;
 import lombok.Getter;
@@ -33,9 +35,8 @@ public class SignupRequest {
     @Size(min = 6, max = 40)
     private String password;
     
-    @NotBlank
-    @Size(min = 10, max = 10)
-    private String contactno;
+    @NotNull
+	private Long contactno;
     
     
 
