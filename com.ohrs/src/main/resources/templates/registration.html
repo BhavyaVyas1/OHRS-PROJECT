@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
 <meta charset="ISO-8859-1">
 <title>Registration | OHRS</title>
@@ -53,7 +54,19 @@ body {
 	
 
 	<div class="container">
-	
+		<!-- success message -->
+				<div th:if="${param.success}">
+					<div class="alert alert-info">You've Successfully Registered
+						To Our Awesome Web site!</div>
+				</div>
+				
+				<div th:if="${param.failusername}">
+					<div class="alert alert-info">Error! User name already exists</div>
+				</div>
+				
+				<div th:if="${param.failemail}">
+					<div class="alert alert-info">Error! Email already exists</div>
+				</div>
 	
 	
 		<h1>Registration Form</h1>

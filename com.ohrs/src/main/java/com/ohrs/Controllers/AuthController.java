@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ohrs.models.ERole;
 import com.ohrs.models.Role;
@@ -75,14 +76,14 @@ public class AuthController {
 		} */
 		
 	/*	if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-			return "redirect:/registration?failusername";
+			return "redirect:api/test/registration?failusername";
 		}
 		
 		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-			return "redirect:/registration?failemail";
+			return "redirect:api/test/registration?failemail";
 		} */
 		
-		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+			if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 			return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
 		}
 		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
@@ -130,6 +131,7 @@ public class AuthController {
 		}
 		user.setRoles(roles);
 		userRepository.save(user);
+	//	return new ModelAndView("welcome");
 	//	return "redirect:/registration?success";
 	    return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 	}
