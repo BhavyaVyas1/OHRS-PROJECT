@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+	<title>Registration Page</title>
+	<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+<style>
+body{
+	background:#e6e6fa;
+}
+.main {
+	width: 100%;
+	height: 93vh;
+	background: linear-gradient(rgba(0, 0, 0, .8), rgba(0, 0, 0, .8)),
+		url(../img/img9.jpg);
+	background-size: cover;
+}
+div{
+	margin:0px auto;
+	width:35%;
+	padding:30px;
+	font-size:20px;
+	background-color:#006699;
+}
+input[type=text],select{
+	width:100%;
+	padding:12px 20px;
+	margin:8px 0;
+	display:inline-block;
+	border:1px solid #ccc;
+	box-sizing:border-box;
+	font-size:14px;
+}
+input[type=password],select{
+	width:100%;
+	padding:12px 20px;
+	margin:8px 0;
+	display:inline-block;
+	border:1px solid #ccc;
+	box-sizing:border-box;
+	font-size:14px;
+}
+input[type=submit]{
+	background-color:#003399;
+	color:white;
+	padding:14px 20px;
+	margin:8px 0;
+	border:none;
+	border-radius:4px;
+	cursor:pointer;
+	font-size:16px;
+}
+input[type=submit]:hover{
+	background-color: #2F4F4F
+}
+h1{
+	color:blue;
+	text-align:center;
+}
+div label{
+	color:white;
+}
+span{
+	color:white;
+}
+</style>
+<script>
+    function registration() {
+        var name = document.forms["regform"]["username"];
+        var email = document.forms["regform"]["email"];
+        var phone = document.forms["regform"]["contactno"];
+        var password = document.forms["regform"]["password"];
+        var cpassword = document.forms["regform"]["cpassword"];
+        
+  
+        if (name.value == "") {
+            window.alert("Please enter your name.");
+            name.focus();
+            return false;
+        }
+  
+        if (email.value == "") {
+            window.alert(
+              "Please enter a valid e-mail address.");
+            email.focus();
+            return false;
+        }
+        
+        if (password.value == "") {
+            window.alert("Please enter your password");
+            password.focus();
+            return false;
+        }
+        if (cpassword.value != password.value) {
+            window.alert("Password is not match");
+            cpassword.focus();
+            return false;
+        }
+        
+        
+        if (phone.value == "") {
+            window.alert(
+              "Please enter your telephone number.");
+            phone.focus();
+            return false;
+        }
+
+  
+        return true;
+    }
+</script>
+</head>
+<body>
+	<h1>Registration Form</h1>
+	<div class="main" >
+		<form name="regform" onsubmit="return registration()" method="post">
+			<label for="username">User Name</label>
+			<input type="text" name="username" id="username" placeholder="username">
+			<label for="email">Email:</label>
+			<input type="text" name="email" id="email" placeholder="your email">
+			<label for="password">Password:</label>
+			<input type="password" name="password" id="password">
+			<label for="conform password">Confirm Password:</label>
+			<input type="password" name="cpassword" id="cpassword">
+			<label for="contactno">Phone Number:</label>
+			<input type="text" name="contactno" id="contactno">
+			<label for="role">Role</label>
+				<select name="role" id="role">
+						<option value="">Select Role</option>
+						<option value="owner">Owner</option>
+						<option value="customer">Customer</option>
+				</select>
+			<input type="submit" class="submit" value="Register" />
+			<input type="reset" class="cancel" value="Cancel" />
+		
+		</form>
+		<span>Already Register? <a href="registration" th:href="@{/api/test/login1">Login
+							here</a></span>
+
+	</div>
+
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+	<title>Login Page</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+</script>
+<style>
+
+body{
+	background:#e6e6fa;
+}
+.main {
+	width: 100%;
+	height: 93vh;
+	background: linear-gradient(rgba(0, 0, 0, .8), rgba(0, 0, 0, .8)),
+		url(../img/img9.jpg);
+	background-size: cover;
+}
+div{
+	margin:0px auto;
+	width:35%;
+	padding:30px;
+	font-size:20px;
+	background-color:#006699;
+}
+input[type=text],select{
+	width:100%;
+	padding:12px 20px;
+	margin:8px 0;
+	display:inline-block;
+	border:1px solid #ccc;
+	box-sizing:border-box;
+	font-size:14px;
+}
+input[type=password],select{
+	width:100%;
+	padding:12px 20px;
+	margin:8px 0;
+	display:inline-block;
+	border:1px solid #ccc;
+	box-sizing:border-box;
+	font-size:14px;
+}
+input[type=submit]{
+	background-color:#003399;
+	color:white;
+	padding:14px 20px;
+	margin:8px 0;
+	border:none;
+	border-radius:4px;
+	cursor:pointer;
+	font-size:16px;
+}
+input[type=submit]:hover{
+	background-color: #2F4F4F
+}
+h1{
+	color:blue;
+	text-align:center;
+}
+div label{
+	color:white;
+}
+span{
+	color:white;
+}
+</style>
+</head>
+<body>
+	<h1>Login Page</h1>
+<div class="main">
+	<form name="regform"  method="post">
+				<label for="username"> Username </label> : <input type="text"
+							class="form-control" id="username" name="username"
+							placeholder="Enter Username" autofocus="autofocus">
+					
+
+				<label for="password">Password</label>: <input type="password"
+							id="password" name="password" class="form-control"
+							placeholder="Enter Password" />
+					
+								<input type="submit" name="login-submit" id="login-submit"
+									class="form-control btn btn-primary" value="Log In" />
+				</form>
+				
+					<span>New user? <a href="registration" th:href="@{/api/test/registration1}">Register
+							here</a></span>
+
+
+</body>
+</html>
